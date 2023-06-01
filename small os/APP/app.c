@@ -68,6 +68,7 @@ void APP_init(void)
 	);
 	SOS_init();
 	EXT_INTERRUPT_MANAGER_init(EXT_0,APP_ext_int0_cbf);
+	EXT_INTERRUPT_MANAGER_init(EXT_1,APP_wake_up_cbf);
 	sei();
 	EXT_INTERRUPT_MANAGER_enable(EXT_0);
 	BUTTON_init(Button_Start);
@@ -91,6 +92,7 @@ void APP_ext_int0_cbf(void)
 	APP_runing_task = SOS_disable;
 	SOS_change_state(NOT_INIT);
 	EXT_INTERRUPT_MANAGER_disable(EXT_0);
+	EXT_INTERRUPT_MANAGER_enable(EXT_1);
 	LED_off(LED_0);
 	LED_off(LED_1);
 }
@@ -98,6 +100,11 @@ void APP_ext_int0_cbf(void)
 
 void APP_wake_up_cbf(void)
 {
+	APP_runing_task = SOS_run;
+	SOS_change_state(INIT);
+	EXT_INTERRUPT_MANAGER_enable(EXT_0);
+	EXT_INTERRUPT_MANAGER_disable(EXT_1);
+	/*
 	static uint8_t u8_btn_state = 0;
 	BUTTON_mainTask();
 	u8_btn_state = BUTTON_getState(Button_Start);
@@ -106,5 +113,5 @@ void APP_wake_up_cbf(void)
 		APP_runing_task = SOS_run;
 		SOS_change_state(INIT);
 		EXT_INTERRUPT_MANAGER_enable(EXT_0);
-	}
+	}*/
 }

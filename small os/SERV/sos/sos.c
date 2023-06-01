@@ -168,7 +168,7 @@ void SOS_disable(void)
 	TIMER_MANAGER_stop(TIMER_0);
 	while(NOT_INIT == u8_gs_sos_module_state)
 	{
-		(ptr_function_wake_up_routine)();
+		//(ptr_function_wake_up_routine)();
 	}
 }
 
