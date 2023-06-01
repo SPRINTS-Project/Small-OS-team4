@@ -25,5 +25,7 @@ const st_ledConfig_t st_gc_ledConfig[2]={
 	}
 };
 
+#define LED_0	st_gc_ledConfig[0]
+#define LED_1	st_gc_ledConfig[1]
 
 #endif /* LED_CFG_H_ */
