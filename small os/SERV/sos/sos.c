@@ -129,3 +129,20 @@ enu_system_status_t SOS_delete_task(uint8_t u8_task_id)
 	}
 	return enu_system_status_retVal;
 }
+
+enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periority,uint16_t u16_task_period)
+{
+	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
+	if ((INIT == u8_gs_sos_module_state) && (NOT_INIT != u8_gs_arr_index_id[u8_task_id])
+	&& (NOT_INIT == u8_gs_arr_index_periority[u8_task_periority]))
+	{
+		arr_st_gs_task_config[u8_gs_arr_index_id[u8_task_id]].u8_task_periority = u8_task_periority;
+		arr_st_gs_task_config[u8_gs_arr_index_id[u8_task_id]].u16_task_period = u16_task_period;
+		u8_gs_arr_index_periority[u8_task_periority]= u8_gs_arr_index_id[u8_task_id];
+	}
+	else
+	{
+		enu_system_status_retVal = SOS_STATUS_INVALID_STATE;
+	}
+	return enu_system_status_retVal;
+}
