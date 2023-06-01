@@ -263,3 +263,4 @@ void SOS_wake_up(ptr_function_name_t ptr_function_name)
 {
 	ptr_function_wake_up_routine = ptr_function_name;
 }
+
