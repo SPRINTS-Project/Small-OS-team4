@@ -192,7 +192,11 @@ enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periori
 	return enu_system_status_retVal;
 }
 
-
+/*
+* Desc : SOS_run to run the sos module
+* Input : void
+* Output : void
+*/
 void SOS_run(void)
 {
 	TIMER2_enuStart();
@@ -208,6 +212,13 @@ void SOS_run(void)
 		}
 	}
 }
+
+
+/*
+* Desc : SOS_disable to disable the sos module
+* Input : void
+* Output : void
+*/
 void SOS_disable(void)
 {
 	TIMER2_vidStop();
@@ -218,7 +229,14 @@ void SOS_disable(void)
 }
 
 
-
+/*
+* Desc : SOS_token_config_param to check if any of the parameters token before
+* Input :	u8_task_id : task ID
+*			u8_task_periority : task priority
+*			u16_task_period : task period
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_token_config_param(ptr_function_name_t ptr_function_name , uint8_t u8_task_id , uint8_t u8_task_periority)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
@@ -244,7 +262,11 @@ enu_system_status_t SOS_token_config_param(ptr_function_name_t ptr_function_name
 	return enu_system_status_retVal;
 }
 
-
+/*
+* Desc : SOS_rearrange_tasks to rearrange tasks in the sos module
+* Input : void
+* Output : void
+*/
 void SOS_rearrange_tasks(void)
 {
 	static st_task_config_t st_task_config;
