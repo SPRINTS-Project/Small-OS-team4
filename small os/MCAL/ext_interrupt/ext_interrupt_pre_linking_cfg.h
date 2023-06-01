@@ -13,7 +13,7 @@
 
 const en_edge_detection_t arr_en_gc_edge_detection[INVALID_EXT_INT] = {
 	FALLING_EDGE,
-	FALLING_EDGE,
+	RISING_EDGE,
 	FALLING_EDGE
 };
 

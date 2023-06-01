@@ -35,15 +35,13 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../HAL/ \
 ../HAL/led/ \
-../HAL/ext_interrupt_manager \
-../HAL/button \
-../HAL/timer_manager \
 ../MCAL/ \
 ../MCAL/dio/ \
 ../MCAL/ext_interrupt \
 ../MCAL/timer \
 ../APP \
 ../SERV \
+../SERV/ext_interrupt_manager/ \
 ../SERV/sos \
 ../STD_LIB/
 
@@ -51,14 +49,8 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../APP/app.c \
-../HAL/button/button.c \
-../HAL/ext_interrupt_manager/ext_interrupt_manager.c \
-../HAL/led/led.c \
-../HAL/timer_manager/timer_manager.c \
 ../main.c \
-../MCAL/dio/dio.c \
-../MCAL/ext_interrupt/ext_interrupt.c \
-../MCAL/timer/timer.c \
+../SERV/ext_interrupt_manager/ext_interrupt_manager.c \
 ../SERV/sos/sos.c
 
 
@@ -70,50 +62,26 @@ ASM_SRCS +=
 
 OBJS +=  \
 APP/app.o \
-HAL/button/button.o \
-HAL/ext_interrupt_manager/ext_interrupt_manager.o \
-HAL/led/led.o \
-HAL/timer_manager/timer_manager.o \
 main.o \
-MCAL/dio/dio.o \
-MCAL/ext_interrupt/ext_interrupt.o \
-MCAL/timer/timer.o \
+SERV/ext_interrupt_manager/ext_interrupt_manager.o \
 SERV/sos/sos.o
 
 OBJS_AS_ARGS +=  \
 APP/app.o \
-HAL/button/button.o \
-HAL/ext_interrupt_manager/ext_interrupt_manager.o \
-HAL/led/led.o \
-HAL/timer_manager/timer_manager.o \
 main.o \
-MCAL/dio/dio.o \
-MCAL/ext_interrupt/ext_interrupt.o \
-MCAL/timer/timer.o \
+SERV/ext_interrupt_manager/ext_interrupt_manager.o \
 SERV/sos/sos.o
 
 C_DEPS +=  \
 APP/app.d \
-HAL/button/button.d \
-HAL/ext_interrupt_manager/ext_interrupt_manager.d \
-HAL/led/led.d \
-HAL/timer_manager/timer_manager.d \
 main.d \
-MCAL/dio/dio.d \
-MCAL/ext_interrupt/ext_interrupt.d \
-MCAL/timer/timer.d \
+SERV/ext_interrupt_manager/ext_interrupt_manager.d \
 SERV/sos/sos.d
 
 C_DEPS_AS_ARGS +=  \
 APP/app.d \
-HAL/button/button.d \
-HAL/ext_interrupt_manager/ext_interrupt_manager.d \
-HAL/led/led.d \
-HAL/timer_manager/timer_manager.d \
 main.d \
-MCAL/dio/dio.d \
-MCAL/ext_interrupt/ext_interrupt.d \
-MCAL/timer/timer.d \
+SERV/ext_interrupt_manager/ext_interrupt_manager.d \
 SERV/sos/sos.d
 
 OUTPUT_FILE_PATH +=small\ os.elf
@@ -137,34 +105,6 @@ APP/app.o: ../APP/app.c
 	@echo Finished building: $<
 	
 
-HAL/button/button.o: ../HAL/button/button.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-HAL/ext_interrupt_manager/ext_interrupt_manager.o: ../HAL/ext_interrupt_manager/ext_interrupt_manager.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-HAL/led/led.o: ../HAL/led/led.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-HAL/timer_manager/timer_manager.o: ../HAL/timer_manager/timer_manager.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -172,21 +112,7 @@ HAL/timer_manager/timer_manager.o: ../HAL/timer_manager/timer_manager.c
 	@echo Finished building: $<
 	
 
-MCAL/dio/dio.o: ../MCAL/dio/dio.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-MCAL/ext_interrupt/ext_interrupt.o: ../MCAL/ext_interrupt/ext_interrupt.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-MCAL/timer/timer.o: ../MCAL/timer/timer.c
+SERV/ext_interrupt_manager/ext_interrupt_manager.o: ../SERV/ext_interrupt_manager/ext_interrupt_manager.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
