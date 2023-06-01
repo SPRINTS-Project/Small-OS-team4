@@ -32,7 +32,12 @@ void SOS_tick_cbf(void);
 void SOS_rearrange_tasks(void);
 
 
-
+/*
+* Desc : SOS_init to inti the sos module
+* Input : void
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_init(void)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
@@ -58,6 +63,13 @@ enu_system_status_t SOS_init(void)
 	return enu_system_status_retVal;
 }
 
+
+/*
+* Desc : SOS_deinit to deinti the sos module
+* Input : void
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_deinit (void)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
@@ -84,6 +96,17 @@ enu_system_status_t SOS_deinit (void)
 	return enu_system_status_retVal;
 }
 
+
+
+/*
+* Desc : SOS_create_task to create a task in the sos module
+* Input :	ptr_function_name : pointer to the task
+*			u8_task_id : task ID
+*			u8_task_periority : task priority
+*			u16_task_period : task period
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_create_task(ptr_function_name_t ptr_function_name , uint8_t u8_task_id , uint8_t u8_task_periority,uint16_t u16_task_period)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
@@ -107,6 +130,14 @@ enu_system_status_t SOS_create_task(ptr_function_name_t ptr_function_name , uint
 	}
 	return enu_system_status_retVal;
 }
+
+
+/*
+* Desc : SOS_delete_task to delete a task from the sos module
+* Input : u8_task_id : task ID
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_delete_task(uint8_t u8_task_id)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
@@ -130,6 +161,16 @@ enu_system_status_t SOS_delete_task(uint8_t u8_task_id)
 	return enu_system_status_retVal;
 }
 
+
+
+/*
+* Desc : SOS_modify_task to modify a task in the sos module
+* Input :	u8_task_id : task ID
+*			u8_task_periority : task priority
+*			u16_task_period : task period
+* Output : SOS_STATUS_SUCCESS if done successfully
+*		   SOS_STATUS_INVALID_STATE if anything wrong
+*/
 enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periority,uint16_t u16_task_period)
 {
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
