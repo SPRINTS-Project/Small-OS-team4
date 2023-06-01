@@ -198,3 +198,68 @@ enu_system_status_t SOS_token_config_param(ptr_function_name_t ptr_function_name
 	}
 	return enu_system_status_retVal;
 }
+
+
+void SOS_rearrange_tasks(void)
+{
+	static st_task_config_t st_task_config;
+	static uint8_t u8_s_tick_index = 0;
+	for(uint8_t i = 1 ; i < u8_gs_max_count_of_tasks ; i++)
+	{
+		for(uint8_t j = i+1 ; j < u8_gs_max_count_of_tasks ; j++)
+		{
+			if ((arr_st_gs_task_config[i].u8_task_periority < arr_st_gs_task_config[j].u8_task_periority))
+			{
+				st_task_config.ptr_function_name = arr_st_gs_task_config[i].ptr_function_name;
+				arr_st_gs_task_config[i].ptr_function_name = arr_st_gs_task_config[j].ptr_function_name;
+				arr_st_gs_task_config[j].ptr_function_name = st_task_config.ptr_function_name;
+				st_task_config.ptr_function_name = NULL;
+				u8_s_tick_index = u16_sos_task_tick[i];
+				u16_sos_task_tick[i] = u16_sos_task_tick[j];
+				u16_sos_task_tick[j] = u8_s_tick_index;
+				u8_s_tick_index = 0;
+				
+				st_task_config.u16_task_period = arr_st_gs_task_config[i].u16_task_period;
+				arr_st_gs_task_config[i].u16_task_period = arr_st_gs_task_config[j].u16_task_period;
+				arr_st_gs_task_config[j].u16_task_period = st_task_config.u16_task_period;
+				st_task_config.u16_task_period = NOT_INIT;
+				
+				st_task_config.u8_task_id = arr_st_gs_task_config[i].u8_task_id;
+				arr_st_gs_task_config[i].u8_task_id = arr_st_gs_task_config[j].u8_task_id;
+				arr_st_gs_task_config[j].u8_task_id = st_task_config.u8_task_id;
+				u8_gs_arr_index_id[arr_st_gs_task_config[i].u8_task_id] = i;
+				u8_gs_arr_index_id[arr_st_gs_task_config[j].u8_task_id] = j;
+				st_task_config.u8_task_id = NOT_INIT;
+				
+				st_task_config.u8_task_periority = arr_st_gs_task_config[i].u8_task_periority;
+				arr_st_gs_task_config[i].u8_task_periority = arr_st_gs_task_config[j].u8_task_periority;
+				arr_st_gs_task_config[j].u8_task_periority = st_task_config.u8_task_periority;
+				st_task_config.u8_task_periority = NOT_INIT;
+				
+			}
+		}
+	}
+}
+
+
+void SOS_tick_cbf(void)
+{
+	for (uint8_t i = 1 ; i < u8_gs_max_count_of_tasks; i++)
+	{
+		if (u16_sos_task_tick[i] != arr_st_gs_task_config[i].u16_task_period)
+		{
+			u16_sos_task_tick[i]++;
+		}
+	}
+}
+
+void SOS_change_state(uint8_t u8_state)
+{
+	u8_gs_sos_module_state = u8_state;
+}
+
+
+void SOS_wake_up(ptr_function_name_t ptr_function_name)
+{
+	ptr_function_wake_up_routine = ptr_function_name;
+}
