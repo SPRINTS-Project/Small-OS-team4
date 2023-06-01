@@ -146,3 +146,55 @@ enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periori
 	}
 	return enu_system_status_retVal;
 }
+
+
+void SOS_run(void)
+{
+	TIMER_MANAGER_start(TIMER_0);
+	while(INIT == u8_gs_sos_module_state)
+	{
+		for(uint8_t i = 1 ; i  < u8_gs_max_count_of_tasks ; i++)
+		{
+			if (arr_st_gs_task_config[i].u16_task_period == u16_sos_task_tick[i])
+			{
+				(arr_st_gs_task_config[i].ptr_function_name)();
+				u16_sos_task_tick[i] = 0;
+			}
+		}
+	}
+}
+void SOS_disable(void)
+{
+	TIMER_MANAGER_stop(TIMER_0);
+	while(NOT_INIT == u8_gs_sos_module_state)
+	{
+		(ptr_function_wake_up_routine)();
+	}
+}
+
+
+
+enu_system_status_t SOS_token_config_param(ptr_function_name_t ptr_function_name , uint8_t u8_task_id , uint8_t u8_task_periority)
+{
+	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
+	if ((NOT_INIT != u8_gs_arr_index_id[u8_task_id]) || (NOT_INIT != u8_gs_arr_index_periority[u8_task_periority]))
+	{
+		enu_system_status_retVal = SOS_STATUS_INVALID_STATE;
+	}
+	else
+	{
+		for (uint8_t i = 0 ; i < u8_gs_max_count_of_tasks ; i++)
+		{
+			if (arr_st_gs_task_config[i].ptr_function_name == ptr_function_name)
+			{
+				enu_system_status_retVal = SOS_STATUS_INVALID_STATE;
+				break;
+			}
+			else
+			{
+				// do nothing
+			}
+		}
+	}
+	return enu_system_status_retVal;
+}
