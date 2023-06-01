@@ -8,9 +8,10 @@
 
 #include "app.h"
 #include "../SERV/sos/sos.h"
-#include "../HAL/led/led.h"
+#include "../HAL/led/led_cfg.h"
 #include "../STD_LIB/interrupt.h"
 #include "../SERV/ext_interrupt_manager/ext_interrupt_manager.h"
+
 //#include "../HAL/button/button.h"
 
 #define NOT_INIT	0
@@ -60,12 +61,12 @@ void APP_init(void)
 	500							// period
 	);
 	
-	SOS_create_task(
+	/*SOS_create_task(
 	TASK_3,						// Function name
 	3,							// ID
 	2,							// priority
 	5000						// period
-	);
+	);*/
 	SOS_init();
 	EXT_INTERRUPT_MANAGER_init(EXT_0,APP_ext_int0_cbf);
 	EXT_INTERRUPT_MANAGER_init(EXT_1,APP_wake_up_cbf);

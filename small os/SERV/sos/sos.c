@@ -9,6 +9,7 @@
 
 #define NOT_INIT		0
 #define INIT			1
+#define TICK_TIME_1_MS		1
 #define INVALID_TASK_ID	100
 #define INVALID_TASK_PERIORITY	100
 #define INVALID_TASK_PERIOD		65536
@@ -43,8 +44,11 @@ enu_system_status_t SOS_init(void)
 	enu_system_status_t enu_system_status_retVal = SOS_STATUS_SUCCESS;
 	if (NOT_INIT == u8_gs_sos_module_state)
 	{
-		enu_system_status_retVal = TIMER_init(TIMER_0);
-		enu_system_status_retVal = TIMER_set_cbk(SOS_tick_cbf,TIMER_0);
+		enu_system_status_retVal = TIMER2_enuInit(OVF_MODE);
+		enu_system_status_retVal = TIMER2_enuSetPrescallar(TIMER_PRE_64);
+		enu_system_status_retVal = TIMER2_enuSetTime_ms(TICK_TIME_1_MS);
+		enu_system_status_retVal = TIMER2_enuOVFIrqEnable();
+		TIMER2_vidSetcbf_OVF(SOS_tick_cbf);
 		u8_gs_sos_module_state = INIT;
 		SOS_rearrange_tasks();
 	}
@@ -191,7 +195,7 @@ enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periori
 
 void SOS_run(void)
 {
-	TIMER_MANAGER_start(TIMER_0);
+	TIMER2_enuStart();
 	while(INIT == u8_gs_sos_module_state)
 	{
 		for(uint8_t i = 1 ; i  < u8_gs_max_count_of_tasks ; i++)
@@ -206,7 +210,7 @@ void SOS_run(void)
 }
 void SOS_disable(void)
 {
-	TIMER_MANAGER_stop(TIMER_0);
+	TIMER2_vidStop();
 	while(NOT_INIT == u8_gs_sos_module_state)
 	{
 		//(ptr_function_wake_up_routine)();

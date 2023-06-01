@@ -139,6 +139,9 @@
     <Compile Include="APP\app.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\led\led.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\led\led.h">
       <SubType>compile</SubType>
     </Compile>
@@ -148,10 +151,16 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\dio\dio.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MCAL\dio\dio.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\dio\dio_private_reg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ext_interrupt\ext_interrupt.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\ext_interrupt\ext_interrupt.h">
@@ -169,13 +178,10 @@
     <Compile Include="MCAL\timer\timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="MCAL\timer\timer_pre_linking_cfg.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="MCAL\timer\timer_private_reg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="MCAL\timer\timer_types.h">
+    <Compile Include="MCAL\timer\timer_source.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SERV\ext_interrupt_manager\ext_interrupt_manager.c">

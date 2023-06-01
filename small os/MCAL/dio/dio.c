@@ -7,6 +7,7 @@
 
 #include "dio.h"
 #include "dio_private_reg.h"
+#include "../../STD_LIB/bit_math.h"
 /**
 
 	@brief Initializes the specified pin of a given port with the specified direction.
