@@ -9,14 +9,10 @@
 #ifndef LED_CFG_H_
 #define LED_CFG_H_
 
-#include "../../MCAL/dio/dio.h"
+#include "led.h"
 
 
-typedef struct
-{
-	en_dioPorts_t port;
-	en_dioPins_t pin;
-}st_ledConfig_t;
+
 
 const st_ledConfig_t st_gc_ledConfig[2]={
 	{
