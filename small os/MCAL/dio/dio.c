@@ -48,16 +48,16 @@ u8_dioErrors_t DIO_init (en_dioPorts_t port, en_dioPins_t pin, u8_dioDir_t dir){
 u8_dioErrors_t DIO_writePIN (en_dioPorts_t port, en_dioPins_t pin, u8_dioLevel_t state){
 		switch(port){
 			case porta:
-			(state == STD_HIGH) ? CLEAR_BIT(WR_PORT_A,pin) :SET_BIT(WR_PORT_A,pin);
+			(state == STD_LOW) ? CLEAR_BIT(WR_PORT_A,pin) :SET_BIT(WR_PORT_A,pin);
 			break;
 			case portb:
-			(state == STD_HIGH) ? CLEAR_BIT(WR_PORT_B,pin) :SET_BIT(WR_PORT_B,pin);
+			(state == STD_LOW) ? CLEAR_BIT(WR_PORT_B,pin) :SET_BIT(WR_PORT_B,pin);
 			break;
 			case portc:
-			(state == STD_HIGH) ? CLEAR_BIT(WR_PORT_C,pin) :SET_BIT(WR_PORT_C,pin);
+			(state == STD_LOW) ? CLEAR_BIT(WR_PORT_C,pin) :SET_BIT(WR_PORT_C,pin);
 			break;
 			case portd:
-			(state == STD_HIGH) ? CLEAR_BIT(WR_PORT_D,pin) :SET_BIT(WR_PORT_D,pin);
+			(state == STD_LOW) ? CLEAR_BIT(WR_PORT_D,pin) :SET_BIT(WR_PORT_D,pin);
 			break;
 			default:
 			return DIO_InvalidPort;

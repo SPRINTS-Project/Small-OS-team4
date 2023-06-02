@@ -16,12 +16,12 @@
 
 const st_ledConfig_t st_gc_ledConfig[2]={
 	{
-		.port = portb,
-		.pin = pin4
+		.port = portc,
+		.pin = pin7
 	},
 	{
-		.port = portb,
-		.pin = pin5
+		.port = portc,
+		.pin = pin2
 	}
 };
 
