@@ -36,7 +36,7 @@
   <documentation help="" />
   <offline-documentation help="" />
   <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
   </dependencies>
 </framework-data>
     </AsfFrameworkConfig>
@@ -193,12 +193,6 @@
     <Compile Include="MCAL\timer\timer_source.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SERV\ext_interrupt_manager\ext_interrupt_manager.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SERV\ext_interrupt_manager\ext_interrupt_manager.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="SERV\sos\sos.c">
       <SubType>compile</SubType>
     </Compile>
@@ -228,7 +222,6 @@
     <Folder Include="MCAL\timer" />
     <Folder Include="APP" />
     <Folder Include="SERV" />
-    <Folder Include="SERV\ext_interrupt_manager\" />
     <Folder Include="SERV\sos" />
     <Folder Include="STD_LIB\" />
   </ItemGroup>

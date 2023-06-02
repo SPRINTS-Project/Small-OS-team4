@@ -10,7 +10,8 @@
 #include "../SERV/sos/sos.h"
 #include "../HAL/led/led_cfg.h"
 #include "../STD_LIB/interrupt.h"
-#include "../SERV/ext_interrupt_manager/ext_interrupt_manager.h"
+//#include "../SERV/ext_interrupt_manager/ext_interrupt_manager.h"
+#include "../HAL/button/button.h"
  
 //#include "../HAL/button/button.h"
 
@@ -18,7 +19,19 @@
 #define INIT		1
 #define DISABLE		2
 
+static str_button_t st_gs_button_0 = {
+	.port_config = portd,
+	.pin_config = pin2,
+	.button_state = BUTTON_RELEASED,
+	.button_active = BUTTON_ACTIVE_LOW
+};
 
+static str_button_t st_gs_button_1 = {
+	.port_config = portd,
+	.pin_config = pin3,
+	.button_state = BUTTON_RELEASED,
+	.button_active = BUTTON_ACTIVE_LOW
+};
 
 typedef void (* APP_runing_task_t) (void);
 
@@ -72,13 +85,13 @@ uint8_t APP_init(void)
 													))
 			{
 				// Init external interrupts
-				if ((EXT_INT_E_OK ==  EXT_INTERRUPT_MANAGER_init(EXT_0,APP_ext_int0_cbf)) &&
-				    (EXT_INT_E_OK ==  EXT_INTERRUPT_MANAGER_init(EXT_1,APP_wake_up_cbf)))
+				if ((BUTTON_E_OK ==  button_with_INT(&st_gs_button_0,APP_ext_int0_cbf)) &&
+				    (BUTTON_E_OK ==  button_with_INT(&st_gs_button_1,APP_wake_up_cbf)))
 				{
 					// enable global interrupts
 					sei();
 					
-					if ((EXT_INT_E_OK == EXT_INTERRUPT_MANAGER_enable(EXT_0)))
+					if ((BUTTON_E_OK == button_enable_INT(&st_gs_button_0)))
 					{
 						// finished Initialization
 					}
@@ -125,8 +138,8 @@ void APP_start(void)
 // enable stop external interrupt
 void APP_btn_start_pressed(void)
 {
-	EXT_INTERRUPT_MANAGER_enable(EXT_0);
-	EXT_INTERRUPT_MANAGER_disable(EXT_1);
+	button_enable_INT(&st_gs_button_0);
+	button_disable_INT(&st_gs_button_1);
 }
 
 
@@ -135,8 +148,8 @@ void APP_btn_start_pressed(void)
 // enable start external interrupt
 void APP_btn_stop_pressed(void)
 {
-	EXT_INTERRUPT_MANAGER_disable(EXT_0);
-	EXT_INTERRUPT_MANAGER_enable(EXT_1);
+	button_disable_INT(&st_gs_button_0);
+	button_enable_INT(&st_gs_button_1);
 }
 
 

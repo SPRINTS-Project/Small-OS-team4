@@ -34,8 +34,8 @@
  *   - BUTTON_NULL_PTR: Null pointer provided for button-related function.
  */
 typedef enum{
-	BUTTON_E_NOK = 0,
-	BUTTON_E_OK,
+	BUTTON_E_OK = 0,
+	BUTTON_E_NOK,
 	BUTTON_WRONG_EXT_NUM,
 	BUTTON_NULL_PTR
 } enu_button_return_state_t;
