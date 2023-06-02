@@ -13,8 +13,8 @@
 typedef void(*ptr_function_t)(void);
 /**datatype to hold the state of function and it has two options  INT_E_OK || INT_E_NOK**/
 typedef enum{
-	EXT_INT_E_NOK =0,
-	EXT_INT_E_OK,
+	EXT_INT_E_OK =0,
+	EXT_INT_E_NOK,
 	EXT_INT_WRONG_EXT_NUM,
 	EXT_INT_NULL_PTR
 } enu_ext_int_return_state_t;

@@ -43,7 +43,7 @@ u8_ledError_t LED_on(st_ledConfig_t led){
  * @return LED_ERROR_OK if the operation is successful, otherwise LED_ERROR_NOT_OK.
  */
 u8_ledError_t LED_off(st_ledConfig_t led){
-	if (DIO_writePIN(led.port,led.pin,STD_LOW) == DIO_E_OK)
+	if (DIO_writePIN(led.port,led.pin,STD_HIGH) == DIO_E_OK)
 	{
 		return LED_ERROR_OK;
 	}
