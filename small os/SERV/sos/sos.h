@@ -21,5 +21,5 @@ enu_system_status_t SOS_modify_task(uint8_t u8_task_id , uint8_t u8_task_periori
 void SOS_run(void);
 void SOS_disable(void);
 void SOS_change_state(uint8_t u8_state);
-void SOS_wake_up(ptr_function_name_t ptr_function_name);
+void SOS_disable_ext_interrupt(ptr_function_name_t ptr_function_name);
 #endif /* SOS_H_ */

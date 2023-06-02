@@ -8,9 +8,14 @@
 
 #ifndef APP_H_
 #define APP_H_
+#include "../STD_LIB/std_types.h"
 
 
-void APP_init(void);
+#define APP_ERROR_OK		0
+#define APP_ERROR_NOT_OK	1
+
+
+uint8_t APP_init(void);
 void APP_start(void);
 
 

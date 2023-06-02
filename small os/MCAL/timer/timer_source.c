@@ -30,7 +30,9 @@ static uint16_t prescaller_map[6] = {
 		0,
 		1,
 		8,
+		32,
 		64,
+		128,
 		256,
 		1024
 };
@@ -136,17 +138,17 @@ enu_timerStatus_t TIMER2_vidStop(void)
 	return errorStatus;
 }
 /*************************************************************************************************************/
-enu_timerStatus_t TIMER2_enuSetTime_ms(uint32_t u32_time_ms)
+enu_timerStatus_t TIMER2_enuSetTime_ms(uint8_t u32_time_ms)
 {
 	enu_timerStatus_t errorStatus = TIMER_OK;
-	uint32_t desired_ticks;
+	uint8_t desired_ticks;
 	float32_t tick_time_ms;
 	if( u32_time_ms < MAX_TIM_MS )
 	{
-		tick_time_ms = (float32_t)prescaller_map[gl_enu_prescaller] / ((uint32_t)F_CPU / 1000U)  ;
+		tick_time_ms = ((float32_t)prescaller_map[gl_enu_prescaller]) / ((uint32_t)F_CPU / 1000U)  ;
 		desired_ticks = u32_time_ms / tick_time_ms;
 
-		/* Compare ticks with OVF_ticks */
+		// Compare ticks with OVF_ticks 
 		if(desired_ticks == OVF_TICKS)
 		{
 			gl_u8_ovf = 1;
@@ -192,9 +194,14 @@ void TIMER2_vidSetcbf_OVF(ptrFunc cbf)
  ************************************************************************************************************/
 ISR(TIMER2_OVF)
 {
-	static uint8_t counter = 0;
-	counter++;
-	if(counter == gl_u8_ovf)
+	if (gl_CallFunc != NULL)
+	{
+		TCNT2 = gl_u8_preload;
+		gl_CallFunc();
+	}
+	//static uint8_t counter = 0;
+	//counter++;
+	/*if(counter == gl_u8_ovf)
 	{
 		if (gl_CallFunc != NULL)
 		{
@@ -203,5 +210,5 @@ ISR(TIMER2_OVF)
 			gl_CallFunc();	
 			
 		}
-	}
+	}*/
 }

@@ -8,14 +8,30 @@
 
 #include "app.h"
 #include "../SERV/sos/sos.h"
-#include "../HAL/led/led.h"
+#include "../HAL/led/led_cfg.h"
 #include "../STD_LIB/interrupt.h"
-#include "../SERV/ext_interrupt_manager/ext_interrupt_manager.h"
+//#include "../SERV/ext_interrupt_manager/ext_interrupt_manager.h"
+#include "../HAL/button/button.h"
+ 
 //#include "../HAL/button/button.h"
 
 #define NOT_INIT	0
 #define INIT		1
+#define DISABLE		2
 
+static str_button_t st_gs_button_0 = {
+	.port_config = portd,
+	.pin_config = pin2,
+	.button_state = BUTTON_RELEASED,
+	.button_active = BUTTON_ACTIVE_LOW
+};
+
+static str_button_t st_gs_button_1 = {
+	.port_config = portd,
+	.pin_config = pin3,
+	.button_state = BUTTON_RELEASED,
+	.button_active = BUTTON_ACTIVE_LOW
+};
 
 typedef void (* APP_runing_task_t) (void);
 
@@ -42,39 +58,69 @@ void TASK_3(void)
 	LED_off(LED_1);
 }
 
-void APP_init(void)
+uint8_t APP_init(void)
 {
-	LED_init(LED_0);
-	LED_init(LED_1);
-	SOS_create_task(
-	TASK_1,						// Function name
-	1,							// ID
-	1,							// priority
-	300							// period
-	);
+	uint8_t u8_retVal = APP_ERROR_OK;
 	
-	SOS_create_task(
-	TASK_2,						// Function name
-	2,							// ID
-	3,							// priority
-	500							// period
-	);
-	
-	SOS_create_task(
-	TASK_3,						// Function name
-	3,							// ID
-	2,							// priority
-	5000						// period
-	);
-	SOS_init();
-	EXT_INTERRUPT_MANAGER_init(EXT_0,APP_ext_int0_cbf);
-	EXT_INTERRUPT_MANAGER_init(EXT_1,APP_wake_up_cbf);
-	sei();
-	EXT_INTERRUPT_MANAGER_enable(EXT_0);
-	EXT_INTERRUPT_MANAGER_enable(EXT_1);
-	//BUTTON_init(Button_Start);
-	//SOS_wake_up(APP_wake_up_cbf);
-	//PORTB = 7;
+	// Init leds
+	if ((LED_ERROR_OK == LED_init(LED_0)) && 
+		(LED_ERROR_OK == LED_init(LED_1)))
+	{
+		// Init the small SOS
+		if (SOS_STATUS_SUCCESS == SOS_init())
+		{
+			// create task 1
+			if (SOS_STATUS_SUCCESS == SOS_create_task(
+														TASK_1,					  	    // Function name
+															 1,							// ID
+															 1,							// priority
+															300							// period
+													 )															&&
+				// create task 2
+				SOS_STATUS_SUCCESS == SOS_create_task(
+														TASK_2,					  	    // Function name
+															 2,							// ID
+															 3,							// priority
+															500							// period
+													))
+			{
+				// Init external interrupts
+				if ((BUTTON_E_OK ==  button_with_INT(&st_gs_button_0,APP_ext_int0_cbf)) &&
+				    (BUTTON_E_OK ==  button_with_INT(&st_gs_button_1,APP_wake_up_cbf)))
+				{
+					// enable global interrupts
+					sei();
+					
+					if ((BUTTON_E_OK == button_enable_INT(&st_gs_button_0)))
+					{
+						// finished Initialization
+					}
+					else
+					{
+						u8_retVal = APP_ERROR_NOT_OK;
+					}
+				}
+				else
+				{
+					u8_retVal = APP_ERROR_NOT_OK;
+				}
+			}
+			else
+			{
+				u8_retVal = APP_ERROR_NOT_OK;
+			}
+		}
+		else
+		{
+			u8_retVal = APP_ERROR_NOT_OK;
+		}
+		
+	}
+	else
+	{
+		u8_retVal = APP_ERROR_NOT_OK;
+	}
+	return u8_retVal;
 }
 
 void APP_start(void)
@@ -87,32 +133,55 @@ void APP_start(void)
 
 
 
+// to avoid disabling interrupts in the ISR 
+// disable start external interrupt
+// enable stop external interrupt
+void APP_btn_start_pressed(void)
+{
+	button_enable_INT(&st_gs_button_0);
+	button_disable_INT(&st_gs_button_1);
+}
+
+
+// to avoid disabling interrupts in the ISR 
+// disable stop external interrupt
+// enable start external interrupt
+void APP_btn_stop_pressed(void)
+{
+	button_disable_INT(&st_gs_button_0);
+	button_enable_INT(&st_gs_button_1);
+}
+
+
+
+// stop button external interrupt handler
 void APP_ext_int0_cbf(void)
 {
-	//x++;
+	// switch the running task to SOS_disable
 	APP_runing_task = SOS_disable;
-	SOS_change_state(NOT_INIT);
-	EXT_INTERRUPT_MANAGER_disable(EXT_0);
-	EXT_INTERRUPT_MANAGER_enable(EXT_1);
+	
+	// change SOS state to stop to exit from SOS_run
+	SOS_change_state(DISABLE);
+	
+	// send external interrupt control handler to SOS_disable
+	SOS_disable_ext_interrupt(APP_btn_stop_pressed);
+	
+	// Turn leds off
 	LED_off(LED_0);
 	LED_off(LED_1);
 }
 
 
+
+// start button external interrupt handler
 void APP_wake_up_cbf(void)
 {
+	// switch the running task to SOS_run
 	APP_runing_task = SOS_run;
+	
+	// change SOS state to stop to exit from SOS_disable
 	SOS_change_state(INIT);
-	EXT_INTERRUPT_MANAGER_enable(EXT_0);
-	EXT_INTERRUPT_MANAGER_disable(EXT_1);
-	/*
-	static uint8_t u8_btn_state = 0;
-	BUTTON_mainTask();
-	u8_btn_state = BUTTON_getState(Button_Start);
-	if (u8_btn_state == BT_RELEASED)
-	{
-		APP_runing_task = SOS_run;
-		SOS_change_state(INIT);
-		EXT_INTERRUPT_MANAGER_enable(EXT_0);
-	}*/
+	
+	// send external interrupt control handler to SOS_disable
+	SOS_disable_ext_interrupt(APP_btn_start_pressed);
 }

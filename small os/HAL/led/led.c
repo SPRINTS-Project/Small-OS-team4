@@ -6,7 +6,7 @@
  */ 
 
 #include "./led.h"
-#include "../../MCAL/dio/dio.h"
+//#include "../../MCAL/dio/dio.h"
 
 /**
  * @brief Initializes an LED based on the provided configuration.

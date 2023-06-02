@@ -2,7 +2,7 @@
  * ext_interrupt.h
  *
  * Created: 5/30/2023 12:02:31 AM
- *  Author: Mahmoud Sarhan
+ *  Author: Arafa Arafa
  */ 
 
 
@@ -10,8 +10,11 @@
 #define EXT_INTERRUPT_H_
 
 
-#include "ext_interrupt_types.h"
 
+#include "ext_interrupt_types.h"
+#include "../dio/dio.h"
+#include "../../STD_LIB/interrupt.h"
+#include "../../STD_LIB/bit_math.h"
 
 u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_num);
 u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt_num);

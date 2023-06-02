@@ -23,8 +23,8 @@ typedef struct
 	uint8_t u8_task_id;
 	uint8_t u8_task_periority;
 	uint16_t u16_task_period;
-	uint16_t u16_remain_time;
-}st_task_config_t;
+	//uint16_t u16_remain_time;
+}st_task_parameters_t;
 
 
 

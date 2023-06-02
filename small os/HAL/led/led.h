@@ -10,7 +10,7 @@
 #define LED_H_
 
 #include "../../STD_LIB/std_types.h"
-
+#include "../../MCAL/dio/dio.h"
 
 typedef uint8_t u8_ledError_t;
 

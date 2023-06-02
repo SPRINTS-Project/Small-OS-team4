@@ -46,11 +46,11 @@ typedef enum
 	TIMER_NO_CLK_SRC,
 	TIMER_PRE_1,
 	TIMER_PRE_8,
+	TIMER_PRE_32,
 	TIMER_PRE_64,
+	TIMER_PRE_128,
 	TIMER_PRE_256,
 	TIMER_PRE_1024,
-	TIMER_EXT_CLK_FALLING,
-	TIMER_EXT_CLK_RISING,
 
 	TIMER_PRESCALR_INVALID,
 
@@ -156,7 +156,7 @@ enu_timerStatus_t TIMER2_vidStop(void);
  * input param 	: u32_time_ms
  * return		: enu_timerStatus_t {TIMER_OK, TIMER_NOK}
  * */
-enu_timerStatus_t TIMER2_enuSetTime_ms(uint32_t u32_time_ms);
+enu_timerStatus_t TIMER2_enuSetTime_ms(uint8_t u32_time_ms);
 
 /*
  * Author		: Bassel Yasser Mahmoud

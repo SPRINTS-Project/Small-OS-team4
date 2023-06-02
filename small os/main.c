@@ -12,7 +12,14 @@
 
 int main(void)
 {
-	APP_init();
-	APP_start();
+	uint8_t u8_retVal = 0;
+	u8_retVal = APP_init();
+	if (0 == u8_retVal)
+	{
+		APP_start();
+	}
+	
+	
+	
 	
 }
