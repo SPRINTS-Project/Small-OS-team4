@@ -139,52 +139,19 @@
     <Compile Include="APP\app.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="HAL\button\button.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\button\button.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\button\button_pre_linking_cfg.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\button\button_types.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\ext_interrupt_manager\ext_interrupt_manager.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\ext_interrupt_manager\ext_interrupt_manager.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\led\led.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="HAL\led\led.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\led\led_cfg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="HAL\timer_manager\timer_manager.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="HAL\timer_manager\timer_manager.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="MCAL\dio\dio.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\dio\dio.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\dio\dio_private_reg.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="MCAL\ext_interrupt\ext_interrupt.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\ext_interrupt\ext_interrupt.h">
@@ -199,9 +166,6 @@
     <Compile Include="MCAL\ext_interrupt\ext_interrupt_types.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="MCAL\timer\timer.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="MCAL\timer\timer.h">
       <SubType>compile</SubType>
     </Compile>
@@ -212,6 +176,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\timer\timer_types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SERV\ext_interrupt_manager\ext_interrupt_manager.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SERV\ext_interrupt_manager\ext_interrupt_manager.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SERV\sos\sos.c">
@@ -236,15 +206,13 @@
   <ItemGroup>
     <Folder Include="HAL\" />
     <Folder Include="HAL\led\" />
-    <Folder Include="HAL\ext_interrupt_manager" />
-    <Folder Include="HAL\button" />
-    <Folder Include="HAL\timer_manager" />
     <Folder Include="MCAL\" />
     <Folder Include="MCAL\dio\" />
     <Folder Include="MCAL\ext_interrupt" />
     <Folder Include="MCAL\timer" />
     <Folder Include="APP" />
     <Folder Include="SERV" />
+    <Folder Include="SERV\ext_interrupt_manager\" />
     <Folder Include="SERV\sos" />
     <Folder Include="STD_LIB\" />
   </ItemGroup>
