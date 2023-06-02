@@ -136,8 +136,8 @@ void TASK_3(void)
   d4:	df 93       	push	r29
   d6:	88 e1       	ldi	r24, 0x18	; 24
   d8:	96 e0       	ldi	r25, 0x06	; 6
-  da:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_start+0x1>
-  de:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_start>
+  da:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  de:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
   e2:	82 e0       	ldi	r24, 0x02	; 2
   e4:	0e 94 2a 06 	call	0xc54	; 0xc54 <SOS_change_state>
   e8:	80 e6       	ldi	r24, 0x60	; 96
@@ -158,8 +158,8 @@ void TASK_3(void)
 0000010a <APP_wake_up_cbf>:
  10a:	83 ec       	ldi	r24, 0xC3	; 195
  10c:	95 e0       	ldi	r25, 0x05	; 5
- 10e:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_start+0x1>
- 112:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_start>
+ 10e:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 112:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
  116:	81 e0       	ldi	r24, 0x01	; 1
  118:	0e 94 2a 06 	call	0xc54	; 0xc54 <SOS_change_state>
  11c:	87 e5       	ldi	r24, 0x57	; 87
@@ -331,8 +331,8 @@ void APP_start(void)
 	while(1)
 	{
 		(APP_runing_task)();
- 1c6:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__data_start>
- 1ca:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__data_start+0x1>
+ 1c6:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1ca:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
  1ce:	09 95       	icall
  1d0:	fa cf       	rjmp	.-12     	; 0x1c6 <APP_start>
 
