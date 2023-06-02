@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000248  00000000  00000000  00000e6c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001ef2  00000000  00000000  000010b4  2**0
+  6 .debug_info   00001ef7  00000000  00000000  000010b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000cf8  00000000  00000000  00002fa6  2**0
+  7 .debug_abbrev 00000cf8  00000000  00000000  00002fab  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000013be  00000000  00000000  00003c9e  2**0
+  8 .debug_line   000012c2  00000000  00000000  00003ca3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000057c  00000000  00000000  0000505c  2**2
+  9 .debug_frame  0000057c  00000000  00000000  00004f68  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000d3e  00000000  00000000  000055d8  2**0
+ 10 .debug_str    00000c62  00000000  00000000  000054e4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001342  00000000  00000000  00006316  2**0
+ 11 .debug_loc    00001342  00000000  00000000  00006146  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000218  00000000  00000000  00007658  2**0
+ 12 .debug_ranges 00000218  00000000  00000000  00007488  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -286,8 +286,16 @@ u8_ledError_t LED_toggle(st_ledConfig_t led){
  1a0:	08 95       	ret
 
 000001a2 <main>:
+#include "APP/app.h"
+
+
+int main(void)
+{
+	APP_init();
  1a2:	0e 94 85 00 	call	0x10a	; 0x10a <APP_init>
+	APP_start();
  1a6:	0e 94 b7 00 	call	0x16e	; 0x16e <APP_start>
+	
  1aa:	80 e0       	ldi	r24, 0x00	; 0
  1ac:	90 e0       	ldi	r25, 0x00	; 0
  1ae:	08 95       	ret
@@ -669,11 +677,11 @@ u8_dioErrors_t DIO_togglePIN (en_dioPorts_t port, en_dioPins_t pin){
  3fe:	08 95       	ret
 
 00000400 <EXT_INTERRUPT_init>:
-ptr_function_t EXT_INT_callbacks[INVALID_EXT_INT] ={NULL};
-
+ */
 u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
 	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
  400:	83 30       	cpi	r24, 0x03	; 3
  402:	38 f5       	brcc	.+78     	; 0x452 <EXT_INTERRUPT_init+0x52>
@@ -696,10 +704,10 @@ u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_n
  41c:	85 b7       	in	r24, 0x35	; 53
  41e:	82 60       	ori	r24, 0x02	; 2
  420:	85 bf       	out	0x35, r24	; 53
-#include "ext_interrupt.h"
-
-ptr_function_t EXT_INT_callbacks[INVALID_EXT_INT] ={NULL};
-
+ *   u8_interruptError_t: Initialization status
+ *     - EXT_INT_E_OK: External interrupt initialized successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  422:	81 e0       	ldi	r24, 0x01	; 1
@@ -722,10 +730,10 @@ u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_n
  432:	85 b7       	in	r24, 0x35	; 53
  434:	8c 60       	ori	r24, 0x0C	; 12
  436:	85 bf       	out	0x35, r24	; 53
-#include "ext_interrupt.h"
-
-ptr_function_t EXT_INT_callbacks[INVALID_EXT_INT] ={NULL};
-
+ *   u8_interruptError_t: Initialization status
+ *     - EXT_INT_E_OK: External interrupt initialized successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  438:	81 e0       	ldi	r24, 0x01	; 1
@@ -748,10 +756,10 @@ u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_n
  448:	84 b7       	in	r24, 0x34	; 52
  44a:	80 68       	ori	r24, 0x80	; 128
  44c:	84 bf       	out	0x34, r24	; 52
-#include "ext_interrupt.h"
-
-ptr_function_t EXT_INT_callbacks[INVALID_EXT_INT] ={NULL};
-
+ *   u8_interruptError_t: Initialization status
+ *     - EXT_INT_E_OK: External interrupt initialized successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  44e:	81 e0       	ldi	r24, 0x01	; 1
@@ -762,12 +770,12 @@ u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_n
 				MCUCSR_ADD |= ( arr_en_gc_edge_detection[EXT_2]<<INT2_MODE_INDEX);
 				break;
  450:	08 95       	ret
-				ret_state = EXT_INT_WRONG_EXT_NUM;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
 				break;
 		}
 	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  452:	82 e0       	ldi	r24, 0x02	; 2
  454:	08 95       	ret
 				sei();
@@ -775,20 +783,22 @@ u8_interruptError_t EXT_INTERRUPT_init(en_ext_interrupt_num_t en_ext_interrupt_n
 				MCUCSR_ADD |= ( arr_en_gc_edge_detection[EXT_2]<<INT2_MODE_INDEX);
 				break;
 			default:
-				ret_state = EXT_INT_WRONG_EXT_NUM;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  456:	82 e0       	ldi	r24, 0x02	; 2
-	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
 	}
-	return ret_state;
+	
+	return ret_state; // Return the initialization status
 }
  458:	08 95       	ret
 
 0000045a <EXT_INTERRUPT_enable>:
+ */
 u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
 	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
  45a:	83 30       	cpi	r24, 0x03	; 3
  45c:	a8 f4       	brcc	.+42     	; 0x488 <EXT_INTERRUPT_enable+0x2e>
@@ -800,89 +810,91 @@ u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt
  466:	59 f0       	breq	.+22     	; 0x47e <EXT_INTERRUPT_enable+0x24>
  468:	11 c0       	rjmp	.+34     	; 0x48c <EXT_INTERRUPT_enable+0x32>
 			case EXT_0:
-			SET_BIT(GICR_ADD,INT0_Globle);
+				SET_BIT(GICR_ADD,INT0_Globle);
  46a:	8b b7       	in	r24, 0x3b	; 59
  46c:	80 64       	ori	r24, 0x40	; 64
  46e:	8b bf       	out	0x3b, r24	; 59
-		ret_state = EXT_INT_WRONG_EXT_NUM;
-	}
-	return ret_state;
-}
+ *   u8_interruptError_t: Enable status
+ *     - EXT_INT_E_OK: External interrupt enabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  470:	81 e0       	ldi	r24, 0x01	; 1
-	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
 		switch(en_ext_interrupt_num){
 			case EXT_0:
-			SET_BIT(GICR_ADD,INT0_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT0_Globle);
+				break;
  472:	08 95       	ret
 			case EXT_1:
-			SET_BIT(GICR_ADD,INT1_Globle);
+				SET_BIT(GICR_ADD,INT1_Globle);
  474:	8b b7       	in	r24, 0x3b	; 59
  476:	80 68       	ori	r24, 0x80	; 128
  478:	8b bf       	out	0x3b, r24	; 59
-		ret_state = EXT_INT_WRONG_EXT_NUM;
-	}
-	return ret_state;
-}
+ *   u8_interruptError_t: Enable status
+ *     - EXT_INT_E_OK: External interrupt enabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  47a:	81 e0       	ldi	r24, 0x01	; 1
 			case EXT_0:
-			SET_BIT(GICR_ADD,INT0_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT0_Globle);
+				break;
 			case EXT_1:
-			SET_BIT(GICR_ADD,INT1_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT1_Globle);
+				break;
  47c:	08 95       	ret
 			case EXT_2:
-			SET_BIT(GICR_ADD,INT2_Globle);
+				SET_BIT(GICR_ADD,INT2_Globle);
  47e:	8b b7       	in	r24, 0x3b	; 59
  480:	80 62       	ori	r24, 0x20	; 32
  482:	8b bf       	out	0x3b, r24	; 59
-		ret_state = EXT_INT_WRONG_EXT_NUM;
-	}
-	return ret_state;
-}
+ *   u8_interruptError_t: Enable status
+ *     - EXT_INT_E_OK: External interrupt enabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_enable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  484:	81 e0       	ldi	r24, 0x01	; 1
 			case EXT_1:
-			SET_BIT(GICR_ADD,INT1_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT1_Globle);
+				break;
 			case EXT_2:
-			SET_BIT(GICR_ADD,INT2_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT2_Globle);
+				break;
  486:	08 95       	ret
-			ret_state = EXT_INT_WRONG_EXT_NUM;
-			break;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
+				break;
 		}
 	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  488:	82 e0       	ldi	r24, 0x02	; 2
  48a:	08 95       	ret
-			break;
+				break;
 			case EXT_2:
-			SET_BIT(GICR_ADD,INT2_Globle);
-			break;
+				SET_BIT(GICR_ADD,INT2_Globle);
+				break;
 			default:
-			ret_state = EXT_INT_WRONG_EXT_NUM;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  48c:	82 e0       	ldi	r24, 0x02	; 2
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
 	}
-	return ret_state;
 	
+	return ret_state; // Return the enable status
 }
  48e:	08 95       	ret
 
 00000490 <EXT_INTERRUPT_disable>:
+ */
 u8_interruptError_t EXT_INTERRUPT_disable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
 	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
  490:	83 30       	cpi	r24, 0x03	; 3
  492:	a8 f4       	brcc	.+42     	; 0x4be <EXT_INTERRUPT_disable+0x2e>
@@ -894,89 +906,91 @@ u8_interruptError_t EXT_INTERRUPT_disable(en_ext_interrupt_num_t en_ext_interrup
  49c:	59 f0       	breq	.+22     	; 0x4b4 <EXT_INTERRUPT_disable+0x24>
  49e:	11 c0       	rjmp	.+34     	; 0x4c2 <EXT_INTERRUPT_disable+0x32>
 			case EXT_0:
-			CLEAR_BIT(GICR_ADD,INT0_Globle);
+				CLEAR_BIT(GICR_ADD,INT0_Globle);
  4a0:	8b b7       	in	r24, 0x3b	; 59
  4a2:	8f 7b       	andi	r24, 0xBF	; 191
  4a4:	8b bf       	out	0x3b, r24	; 59
-	}
-	return ret_state;
-	
-}
+ *   u8_interruptError_t: Disable status
+ *     - EXT_INT_E_OK: External interrupt disabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_disable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  4a6:	81 e0       	ldi	r24, 0x01	; 1
-	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
 		switch(en_ext_interrupt_num){
 			case EXT_0:
-			CLEAR_BIT(GICR_ADD,INT0_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT0_Globle);
+				break;
  4a8:	08 95       	ret
 			case EXT_1:
-			CLEAR_BIT(GICR_ADD,INT1_Globle);
+				CLEAR_BIT(GICR_ADD,INT1_Globle);
  4aa:	8b b7       	in	r24, 0x3b	; 59
  4ac:	8f 77       	andi	r24, 0x7F	; 127
  4ae:	8b bf       	out	0x3b, r24	; 59
-	}
-	return ret_state;
-	
-}
+ *   u8_interruptError_t: Disable status
+ *     - EXT_INT_E_OK: External interrupt disabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_disable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  4b0:	81 e0       	ldi	r24, 0x01	; 1
 			case EXT_0:
-			CLEAR_BIT(GICR_ADD,INT0_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT0_Globle);
+				break;
 			case EXT_1:
-			CLEAR_BIT(GICR_ADD,INT1_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT1_Globle);
+				break;
  4b2:	08 95       	ret
 			case EXT_2:
-			CLEAR_BIT(GICR_ADD,INT2_Globle);
+				CLEAR_BIT(GICR_ADD,INT2_Globle);
  4b4:	8b b7       	in	r24, 0x3b	; 59
  4b6:	8f 7d       	andi	r24, 0xDF	; 223
  4b8:	8b bf       	out	0x3b, r24	; 59
-	}
-	return ret_state;
-	
-}
+ *   u8_interruptError_t: Disable status
+ *     - EXT_INT_E_OK: External interrupt disabled successfully
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
 u8_interruptError_t EXT_INTERRUPT_disable(en_ext_interrupt_num_t en_ext_interrupt_num){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  4ba:	81 e0       	ldi	r24, 0x01	; 1
 			case EXT_1:
-			CLEAR_BIT(GICR_ADD,INT1_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT1_Globle);
+				break;
 			case EXT_2:
-			CLEAR_BIT(GICR_ADD,INT2_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT2_Globle);
+				break;
  4bc:	08 95       	ret
-			ret_state = EXT_INT_WRONG_EXT_NUM;
-			break;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
+				break;
 		}
 	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  4be:	82 e0       	ldi	r24, 0x02	; 2
  4c0:	08 95       	ret
-			break;
+				break;
 			case EXT_2:
-			CLEAR_BIT(GICR_ADD,INT2_Globle);
-			break;
+				CLEAR_BIT(GICR_ADD,INT2_Globle);
+				break;
 			default:
-			ret_state = EXT_INT_WRONG_EXT_NUM;
+				ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  4c2:	82 e0       	ldi	r24, 0x02	; 2
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
 	}
-	return ret_state;
 	
+	return ret_state; // Return the disable status
 }
  4c4:	08 95       	ret
 
 000004c6 <EXT_INTERRUPT_set_callback_init>:
-u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ext_interrupt_num ,void(*callback)(void)){
+ */
+u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ext_interrupt_num, void(*callback)(void)){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
 	
+	// Check if the external interrupt number is within valid range
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
  4c6:	83 30       	cpi	r24, 0x03	; 3
  4c8:	68 f4       	brcc	.+26     	; 0x4e4 <EXT_INTERRUPT_set_callback_init+0x1e>
@@ -984,7 +998,7 @@ u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ex
  4ca:	61 15       	cp	r22, r1
  4cc:	71 05       	cpc	r23, r1
  4ce:	61 f0       	breq	.+24     	; 0x4e8 <EXT_INTERRUPT_set_callback_init+0x22>
-			EXT_INT_callbacks[en_ext_interrupt_num] = callback;
+			EXT_INT_callbacks[en_ext_interrupt_num] = callback; // Set the callback function pointer for the specified external interrupt
  4d0:	e8 2f       	mov	r30, r24
  4d2:	f0 e0       	ldi	r31, 0x00	; 0
  4d4:	ee 0f       	add	r30, r30
@@ -993,40 +1007,43 @@ u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ex
  4da:	ff 4f       	sbci	r31, 0xFF	; 255
  4dc:	71 83       	std	Z+1, r23	; 0x01
  4de:	60 83       	st	Z, r22
-	}
-	return ret_state;
-	
-}
-u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ext_interrupt_num ,void(*callback)(void)){
+ *     - EXT_INT_E_OK: Callback set successfully
+ *     - EXT_INT_NULL_PTR: Null pointer provided for the callback
+ *     - EXT_INT_WRONG_EXT_NUM: Invalid external interrupt number
+ */
+u8_interruptError_t EXT_INTERRUPT_set_callback_init(en_ext_interrupt_num_t en_ext_interrupt_num, void(*callback)(void)){
 	u8_interruptError_t ret_state = EXT_INT_E_OK;
  4e0:	81 e0       	ldi	r24, 0x01	; 1
  4e2:	08 95       	ret
-			ret_state = EXT_INT_NULL_PTR;
+		else{
+			ret_state = EXT_INT_NULL_PTR; // Return error code EXT_INT_NULL_PTR for null pointer provided for the callback
 		}
-		
 	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
  4e4:	82 e0       	ldi	r24, 0x02	; 2
  4e6:	08 95       	ret
 	if(en_ext_interrupt_num < INVALID_EXT_INT){
 		if(callback != NULL){
-			EXT_INT_callbacks[en_ext_interrupt_num] = callback;
+			EXT_INT_callbacks[en_ext_interrupt_num] = callback; // Set the callback function pointer for the specified external interrupt
 		}
 		else{
-			ret_state = EXT_INT_NULL_PTR;
+			ret_state = EXT_INT_NULL_PTR; // Return error code EXT_INT_NULL_PTR for null pointer provided for the callback
  4e8:	83 e0       	ldi	r24, 0x03	; 3
-	}
 	else{
-		ret_state = EXT_INT_WRONG_EXT_NUM;
+		ret_state = EXT_INT_WRONG_EXT_NUM; // Return error code EXT_INT_WRONG_EXT_NUM for invalid external interrupt number
 	}
-	return ret_state;
+	
+	return ret_state; // Return the set callback status
 }
  4ea:	08 95       	ret
 
 000004ec <__vector_1>:
-
-
+ * Interrupt Service Routine: EXT_INT0
+ * -----------------------------------
+ * Executes the callback function for external interrupt 0.
+ * If the callback function is not set, it returns immediately.
+ */
 ISR(EXT_INT0){
  4ec:	1f 92       	push	r1
  4ee:	0f 92       	push	r0
@@ -1050,13 +1067,12 @@ ISR(EXT_INT0){
  512:	f0 91 75 00 	lds	r31, 0x0075	; 0x800075 <__data_end+0x1>
  516:	30 97       	sbiw	r30, 0x00	; 0
  518:	09 f0       	breq	.+2      	; 0x51c <__vector_1+0x30>
-		(*EXT_INT_callbacks[EXT_0])();
+		(*EXT_INT_callbacks[EXT_0])(); // Call the callback function for external interrupt 0
  51a:	09 95       	icall
-	else{
-		return;
 	}
-	
-	
+	else{
+		return; // If callback function is not set, return immediately
+	}
 }
  51c:	ff 91       	pop	r31
  51e:	ef 91       	pop	r30
@@ -1077,6 +1093,11 @@ ISR(EXT_INT0){
  53c:	18 95       	reti
 
 0000053e <__vector_2>:
+ * Interrupt Service Routine: EXT_INT1
+ * -----------------------------------
+ * Executes the callback function for external interrupt 1.
+ * If the callback function is not set, it returns immediately.
+ */
 ISR(EXT_INT1){
  53e:	1f 92       	push	r1
  540:	0f 92       	push	r0
@@ -1095,20 +1116,17 @@ ISR(EXT_INT1){
  55a:	bf 93       	push	r27
  55c:	ef 93       	push	r30
  55e:	ff 93       	push	r31
-	
-	
 	if(EXT_INT_callbacks[EXT_1] != NULL){
  560:	e0 91 76 00 	lds	r30, 0x0076	; 0x800076 <__data_end+0x2>
  564:	f0 91 77 00 	lds	r31, 0x0077	; 0x800077 <__data_end+0x3>
  568:	30 97       	sbiw	r30, 0x00	; 0
  56a:	09 f0       	breq	.+2      	; 0x56e <__vector_2+0x30>
-		(*EXT_INT_callbacks[EXT_1])();
+		(*EXT_INT_callbacks[EXT_1])(); // Call the callback function for external interrupt 1
  56c:	09 95       	icall
-	else{
-		return;
 	}
-	
-	
+	else{
+		return; // If callback function is not set, return immediately
+	}
 }
  56e:	ff 91       	pop	r31
  570:	ef 91       	pop	r30
@@ -1129,6 +1147,11 @@ ISR(EXT_INT1){
  58e:	18 95       	reti
 
 00000590 <__vector_3>:
+ * Interrupt Service Routine: EXT_INT2
+ * -----------------------------------
+ * Executes the callback function for external interrupt 2.
+ * If the callback function is not set, it returns immediately.
+ */
 ISR(EXT_INT2){
  590:	1f 92       	push	r1
  592:	0f 92       	push	r0
@@ -1147,19 +1170,18 @@ ISR(EXT_INT2){
  5ac:	bf 93       	push	r27
  5ae:	ef 93       	push	r30
  5b0:	ff 93       	push	r31
-	
 	if(EXT_INT_callbacks[EXT_2] != NULL){
  5b2:	e0 91 78 00 	lds	r30, 0x0078	; 0x800078 <__data_end+0x4>
  5b6:	f0 91 79 00 	lds	r31, 0x0079	; 0x800079 <__data_end+0x5>
  5ba:	30 97       	sbiw	r30, 0x00	; 0
  5bc:	09 f0       	breq	.+2      	; 0x5c0 <__vector_3+0x30>
-		(*EXT_INT_callbacks[EXT_2])();
+		(*EXT_INT_callbacks[EXT_2])(); // Call the callback function for external interrupt 2
  5be:	09 95       	icall
 	}
 	else{
-		return;
+		return; // If callback function is not set, return immediately
 	}
-	
+}
  5c0:	ff 91       	pop	r31
  5c2:	ef 91       	pop	r30
  5c4:	bf 91       	pop	r27
