@@ -16,7 +16,7 @@
 
 ---
 
-## **`BCM design Doc`**  👉🏻  [Here](./design%20doc/Small%20OS%20Design.pdf)
+## **`SOS design Doc`**  👉🏻  [Here](./design%20doc/Small%20OS%20Design.pdf)
 
 ---
 ## Hardware Simulation Video
