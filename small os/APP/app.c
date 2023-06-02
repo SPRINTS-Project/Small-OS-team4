@@ -73,9 +73,7 @@ void APP_init(void)
 	sei();
 	EXT_INTERRUPT_MANAGER_enable(EXT_0);
 	EXT_INTERRUPT_MANAGER_enable(EXT_1);
-	//BUTTON_init(Button_Start);
-	//SOS_wake_up(APP_wake_up_cbf);
-	//PORTB = 7;
+	
 }
 
 void APP_start(void)
