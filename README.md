@@ -21,3 +21,7 @@
 ---
 ## Hardware Simulation Video
 
+
+https://github.com/SPRINTS-Project/Small-OS-team4/assets/104660108/16bae3ab-a0ee-483c-8c47-4e6d06fe0495
+
+
