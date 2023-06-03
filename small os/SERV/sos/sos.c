@@ -4,9 +4,14 @@
  * Created: 6/1/2023 5:17:15 PM
  *  Author: Mahmoud Sarhan
  */ 
+/************************************************************************************************/
+/*									Includes														*/
+/************************************************************************************************/
 #include "sos.h"
 #include "../../MCAL/timer/timer.h"
-
+/************************************************************************************************/
+/*									Macros														*/
+/************************************************************************************************/
 #define NOT_INIT				0
 #define INIT					1
 #define DISABLE					2
@@ -18,7 +23,9 @@
 #define WAITING_STACK_SIZE		5
 
 
-
+/************************************************************************************************/
+/*									Static and global variables 						*/
+/************************************************************************************************/
 static st_task_parameters_t arr_st_gs_task_parameters[INVALID_TASK_ID]		= {NULL};
 static uint8_t u8_gs_arr_index_id[INVALID_TASK_ID]							= {NOT_INIT};
 static uint8_t u8_gs_arr_index_periority[INVALID_TASK_PERIORITY]			= {NOT_INIT};
@@ -30,12 +37,16 @@ static ptr_function_name_t ptr_function_disable_ext_interrupt						= NULL;
 
 
 
-
+/************************************************************************************************/
+/*									Static functions prototype														*/
+/************************************************************************************************/
 static enu_system_status_t SOS_token_config_param(ptr_function_name_t ptr_function_name , uint8_t u8_task_id , uint8_t u8_task_periority);
 void SOS_tick_cbf(void);
 static void SOS_rearrange_tasks(void);
 
-
+/************************************************************************************************/
+/*									Functions implementation														*/
+/************************************************************************************************/
 /*
 * Desc : SOS_init to inti the sos module
 * Input : void
@@ -383,7 +394,9 @@ void SOS_disable(void)
 	}
 }
 
-
+/************************************************************************************************/
+/*									Static function Implementation														*/
+/************************************************************************************************/
 /*
 * Desc : SOS_token_config_param to check if any of the parameters token before
 * Input :	u8_task_id : task ID
@@ -506,4 +519,8 @@ void SOS_disable_ext_interrupt(ptr_function_name_t ptr_function_name)
 {
 	ptr_function_disable_ext_interrupt = ptr_function_name;
 }
+
+/************************************************************************************************/
+/*									End														*/
+/************************************************************************************************/
 
