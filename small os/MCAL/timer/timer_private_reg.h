@@ -12,7 +12,7 @@
 
 #include "../../STD_LIB/std_types.h"
 
-/****************************************TIMER0_REGISTERS *************************************************/
+/****************************************TIMER0_REGISTERS ***************************************************/
 /* TCNT0 – Timer/Counter Register*/
 #ifndef TCNT0
 #define TCNT0   (*(volatile uint8_t*)0x52)

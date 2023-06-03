@@ -4,9 +4,16 @@
  * Created: 6/1/2023 3:10:51 PM
  *  Author: Youssef Abbas
  */ 
+/************************************************************************************************/
+/*									Includes														*/
+/************************************************************************************************/
 
 #include "./led.h"
 //#include "../../MCAL/dio/dio.h"
+
+/************************************************************************************************/
+/*									Function Implementation														*/
+/************************************************************************************************/
 
 /**
  * @brief Initializes an LED based on the provided configuration.
@@ -21,7 +28,9 @@ u8_ledError_t LED_init(st_ledConfig_t led){
 		return LED_ERROR_OK;
 	}
 	return LED_ERROR_NOT_OK;
-}/**
+}
+
+/**
  * @brief Turns on the specified LED.
  *
  * @param led The LED configuration structure.
@@ -63,3 +72,8 @@ u8_ledError_t LED_toggle(st_ledConfig_t led){
 	}
 	return LED_ERROR_NOT_OK;
 }
+
+/************************************************************************************************/
+/*									End														*/
+/************************************************************************************************/
+
